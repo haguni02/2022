@@ -66,3 +66,42 @@ a : 1, *arr[0] : 1
 b : 2, *arr[1] : 2 
 b : 3, *arr[2] : 3 
 ```
+
+## 함수 포인터 
+* 프로그래밍 언어를 실행 파일로 컴파일 하기 위해서는 코드가 메모리 상에 올라간다 
+* 변수를 가리키는 포인터 처럼 함수 포인터는 메모리 상에 올라간 함수의 시작 주소를 가리키는 역할을 하게 된다 
+* 함수 포인터가 함수를 가리키기 위해서는 그 함수의 시작 주소값을 알아야 하는데, 배열과 마찬가지로 함수의 이름이 바로 함수의 시작 주소값을 나타낸다 
+```
+// 함수 포인터의 정의 
+(함수의 리턴형) (*포인터 이름)(첫번째 인자 타입, 두번째 인자 타입,....)
+```
+```cpp
+/* 함수 포인터 */
+#include <stdio.h>
+
+int max(int a, int b);
+int main() {
+  int a, b;
+  int (*pmax)(int, int);
+  pmax = max;
+
+  scanf("%d %d", &a, &b);
+  printf("max(a,b) : %d \n", max(a, b));
+  printf("pmax(a,b) : %d \n", pmax(a, b));
+
+  return 0;
+}
+int max(int a, int b) {
+  if (a > b)
+    return a;
+  else
+    return b;
+
+  return 0;
+}
+```
+```
+10 15
+max(a,b) : 15 
+pmax(a,b) : 15 
+```
