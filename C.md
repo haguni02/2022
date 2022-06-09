@@ -133,3 +133,49 @@ sentence_3 : KHY
 sentence_4 : KHY 
 ```
 * 쌍따옴표("") 로 문자열을 저장할 경우 자동으로 뒤에 널값이 추가된다 
+
+## 입력 버퍼 
+* 키보드로 입력한 모든 정보는 일시적으로 stdin(입력 버퍼, 입력 스트림) 에 저장되었다가 나중에 입력이 종료('\n'이 입력)되면 한꺼번에 처리를 하는 방식이다
+```cpp
+#include <stdio.h>
+int main() {
+  int num;
+  char c;
+
+  printf("숫자를 입력하세요 : ");
+  scanf("%d", &num);
+
+  printf("문자를 입력하세요 : ");
+  scanf("%c", &c);
+  return 0;
+}
+```
+```
+숫자를 입력하세요 : 1
+문자를 입력하세요 : 
+```
+* 1을 쓰고 엔터를 치면 stdin에는 "1\n" 이 저장이 된다 
+* scanf("%d", &num); 에서 숫자 형식의 데이터인 1을 num 변수에 집어 넣고 stdin 에는 "\n"이 남는다 
+* scanf("%c", &c); 에서는 stdin 에 문자가 남아 있다면, 하나의 문자를 가져와 c 에 저장을 한다 
+* c에는 '\n' 문자가 저장되어있다 
+```cpp
+#include <stdio.h>
+int main() {
+  char str[30];
+  int i;
+
+  scanf("%d", &i);
+  scanf("%s", str);
+
+  printf("str : %s", str);
+
+  return 0;
+}
+```
+```
+1
+asdfasfasdf
+str : asdfasfasdf
+```
+* stdin 에는 "1\nasdfasfasdf\n" 이 저장된다
+* %s 는 실질적인 데이터가 나오기 전까지 앞에 있는 공백문자('\n', ' ', '\t') 를 무시하고 실질적인 데이터가 입력이 된다면 후에 등장하는 공백문자에서 입력 종료가 된다 
