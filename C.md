@@ -181,6 +181,6 @@ str : asdfasfasdf
 * %s 는 실질적인 데이터가 나오기 전까지 앞에 있는 공백문자('\n', ' ', '\t') 를 무시하고 실질적인 데이터가 입력이 된다면 후에 등장하는 공백문자에서 입력 종료가 된다 
 
 ## 입력 버퍼 지우기
-'''cpp
-
-'''
+```cpp
+#include <stdio.h> int main() { int num, i; char c; printf("숫자를 입력하세요 : "); scanf("%d", &num); getchar(); printf("문자를 입력하세요 : "); scanf("%c", &c); printf("입력한 문자 : %c", c); return 0; }
+```
