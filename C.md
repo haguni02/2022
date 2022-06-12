@@ -205,3 +205,24 @@ int main() {
 ```
 * getchar 함수는 stdin 에서 한 문자를 읽어와서 그 값을 리턴하는 함수이다 
 * 일반적으로 scanf 에서 %c를 사용하지 않고, %s 형태로 문자열을 입력 받은 뒤에 맨 앞의 한 문자만 취하는 식으로 만든다 
+
+## 문자열 리터럴
+* C 언어의 경우 큰 따옴표(") 로 묶인 것들을 문자열 리터럴(string literal) 이라 부른다 
+* 프로그램이 실행되서 메모리에 로드되면, 5 가지 종류의 영역(text segment, data segment, bss segment, heap, stack) 이 존재하는데, 텍스트 세그먼트(text segment) 에 프로그램 코드와 상수, 리터럴 등이 여기서 정의된다 
+* 문자열 리터럴은 문자열이 저장된 시작 주소값을 담고있다 
+* 리터럴이 보관되는 곳은 오직 읽기만 가능한 곳이 되므로 수정할 수 없다 
+```cpp
+/* 문자열 */
+#include <stdio.h>
+int main() {
+  char str[] = "hello";   // 스택 
+  char *pstr = "goodbye"; // 텍스트 세그먼트
+
+  str[1] = 'a';
+  // pstr[1] = 'a'; // 에러 
+
+  return 0;
+}
+```
+* char str[] = "hello"; 은 char str[] = {'h', 'e', 'l', 'l', 'o', '\0'}; 으로 단순히 str 이라는 배열에 hello 라는 문자열을 복사한다 
+* char str[] = {'h', 'e', 'l', 'l', 'o', '\0'}; 은 텍스트 세그먼트가 아니라 스택(stack)이라는 메모리 수정이 가능한 영역에 정의된다 
