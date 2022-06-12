@@ -182,5 +182,26 @@ str : asdfasfasdf
 
 ## 입력 버퍼 지우기
 ```cpp
+/* getchar 함수 이용 */
+#include <stdio.h>
+int main() {
+  int num;
+  char c;
 
+  printf("숫자를 입력하세요 : ");
+  scanf("%d", &num);
+
+  getchar();
+
+  printf("문자를 입력하세요 : ");
+  scanf("%c", &c);
+
+  return 0;
+}
 ```
+```
+숫자를 입력하세요 : 1
+문자를 입력하세요 : c
+```
+* getchar 함수는 stdin 에서 한 문자를 읽어와서 그 값을 리턴하는 함수이다 
+* 일반적으로 scanf 에서 %c를 사용하지 않고, %s 형태로 문자열을 입력 받은 뒤에 맨 앞의 한 문자만 취하는 식으로 만든다 
