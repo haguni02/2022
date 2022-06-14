@@ -259,3 +259,31 @@ Khy 에 대한 정보
 * 정의된 구조체는 하나틔 타입처럼 사용하고 .을 이용해 각 멤버에 접근할 수 있다 
 
 ## 구조체 포인터 
+```cpp
+/* 구조체 포인터 */
+#include <stdio.h>
+struct test {
+  int a, b;
+};
+int main() {
+  struct test st;
+  struct test *ptr;
+
+  ptr = &st;
+
+  (*ptr).a = 1;
+  (*ptr).b = 2;
+
+  printf("st 의 a 멤버 : %d \n", st.a);
+  printf("st 의 b 멤버 : %d \n", st.b);
+
+  return 0;
+}
+```
+```
+st 의 a 멤버 : 1 
+st 의 b 멤버 : 2 
+```
+* 구조체도 하나이 타입으로 정의되기 때문에 구조체 변수를 가르키는 포인터를 만들 수 있다 
+* *ptr은 st와 같은 의미로 사용된다
+* (*ptr).a = 1; 대신 ptr->a = 1; 처럼 -> 기호를 사용해 멤버에 접근할 수 있다
