@@ -131,5 +131,4 @@ $ source .bashrc
 $ roscore
 $ rosrun turtlesim turtlesim_node
 $ rosrun turtlesim turtle_teleop_key
-$ rqt_graph
 ```
