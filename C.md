@@ -226,3 +226,36 @@ int main() {
 ```
 * char str[] = "hello"; 은 char str[] = {'h', 'e', 'l', 'l', 'o', '\0'}; 으로 단순히 str 이라는 배열에 hello 라는 문자열을 복사한다 
 * char str[] = {'h', 'e', 'l', 'l', 'o', '\0'}; 은 텍스트 세그먼트가 아니라 스택(stack)이라는 메모리 수정이 가능한 영역에 정의된다 
+
+## 구조체 
+* 다양한 타입의 변수를 묶어서 관리할 수 있다 
+```cpp
+#include <stdio.h>
+struct Human {
+  int age;    /* 나이 */
+  int height; /* 키 */
+  int weight; /* 몸무게 */
+};            /* ; 붙이는 것 주의하세요 */
+int main() {
+  struct Human Khy;
+
+  Khy.age = 99;
+  Khy.height = 185;
+  Khy.weight = 80;
+
+  printf("Khy 에 대한 정보 \n");
+  printf("나이   : %d \n", Khy.age);
+  printf("키     : %d \n", Khy.height);
+  printf("몸무게 : %d \n", Khy.weight);
+  return 0;
+}
+```
+```
+Khy 에 대한 정보 
+나이   : 99 
+키     : 185 
+몸무게 : 80 
+```
+* 정의된 구조체는 하나틔 타입처럼 사용하고 .을 이용해 각 멤버에 접근할 수 있다 
+
+## 구조체 포인터 
