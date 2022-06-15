@@ -133,3 +133,49 @@ $ catkin_make
 // roscore 실행 후 실행 
 $ rosrun TEST tmp
 ```
+
+## novatel_span_driver 패키지 붙이기 
+0. 장치 : SPAN® on ProPak6
+1. 패키지 설치 
+```
+$ cd ~/catkin_ws/src
+$ git clone https://github.com/ros-drivers/novatel_span_driver.git
+$ cd ~/catkin_ws
+$ catkin_make  
+```
+2. 장치 연결 
+```
+$ roscore 
+$ cd ~/catkin_ws
+$ source devel/setup.sh
+// usb 연결시 example_for_usb.launch 파일 실행 
+$ roslaunch novatel_span_driver example_for_usb.launch
+// 또는 
+$ roslaunch ./src/novatel_span_driver/novatel_span_driver/launch/example_for_usb.launch
+```
+3. 연결 확인 
+```
+$ rostopic list 
+```
+```
+/diagnostics
+/imu/data
+/navsat/fix
+/navsat/odom
+/navsat/origin
+/novatel_data/ack
+/novatel_data/bestpos
+/novatel_data/corrimudata
+/novatel_data/inscov
+/novatel_data/inspvax
+/odom
+/rosout
+/rosout_agg
+/tf
+```
+* ImportError: No module named geodesy.utm 에러 해결법 
+```
+$ cd ~/catkin_ws
+$ rosdep install --from-paths src --ignore-src
+```
+* driver 에는 geodesy 패키지가 필요한데 위 명령어를 입력하면 자동으로 설치가 된다 
