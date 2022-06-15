@@ -288,3 +288,49 @@ st 의 b 멤버 : 2
 * 구조체도 하나이 타입으로 정의되기 때문에 구조체 변수를 가르키는 포인터를 만들 수 있다 
 * *ptr은 st와 같은 의미로 사용된다
 * (*ptr).a = 1; 대신 ptr->a = 1; 처럼 -> 기호를 사용해 멤버에 접근할 수 있다
+
+## 빅 엔디안 (Big Endian), 리틀 엔디안 (Little Endian)
+* 컴퓨터에서 메모리에 수를 저장할 때, 우리가 생각하는 방법, 즉 낮은 주소값에 상위 비트를 적는 방식을 빅 엔디안 방식이라고 한다 
+* <img src="./img/C_BigEndian.png" /> 
+* 우리가 생각하는 방법의 정반대로 높은 주소값에 상위 비트를 적는 방식을 리틀 엔디안 이라고 한다 
+* <img src="./img/C_LittleEndian.png" /> 
+* 현재 대부분은 x86 프로세서는 리틀 엔디안 방식을 사용하고 있고 일부 컴퓨터에서만 빅 엔디안 방식을 사용하고 있다
+
+## 열거형 (Enum) 
+```cpp
+/* 열거형의 도입 */
+#include <stdio.h>
+enum { RED, BLUE, WHITE, BLACK };
+int main() {
+  int palette = RED;
+  switch (palette) {
+    case RED:
+      printf("palette : RED \n");
+      break;
+    case BLUE:
+      printf("palette : BLUE \n");
+      break;
+
+    case WHITE:
+      printf("palette : WHITE \n");
+      break;
+    case BLACK:
+      printf("palette : BLACK \n");
+      break;
+  }
+}
+```
+```
+palette : RED 
+```
+* 컴파일러는 열거형에 나타나 있는 각 원소에 0 부터 차례로 정수값을 매겨준다, RED = 0, BLUE = 1, .. BLACK = 3
+* 열거형 에서는 언제나 '정수값'이 매겨진다 
+* 컴파일 시에 컴파일러는 RED 는 모두 0 로 바꾸고 BLUE 는 모두 1 로 바꾸는 등 변환 작업이 이루어지기 때문에 실질적으로 RED가 메모리 위에 올라가는 것은 아니다 
+```cpp
+enum { RED = 3, BLUE, WHITE, BLACK };
+```
+* RED = 3 부터 해서 BLUE = 4, WHITE = 5, BLACK = 6 이 된다 
+```cpp
+enum { RED = 3, BLUE, WHITE = 3, BLACK }
+```
+* BLUE = 4, BLACK = 4
