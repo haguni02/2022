@@ -358,4 +358,4 @@ int main() {
 * RAM 위로 올라오는 프로그램의 내용을 크게 나누어서 코드 세그먼트(Code Segment) 와 데이터 세그먼트(Data Segment) 로 분류한다 
 * 데이터 세그먼트안에는 Stack 영역 (지역변수), Heap 영역 (프로그래머가 관리하는 메모리 영역), Data 영역 (전역변수, 정적변수), Read-Only-Data (상수와 리터럴), Code 영역 (Code Segment) 로 분류된다 
 * Stack 영역과 Data 영역의 메모리 크기는 컴파일 타임에 결정된다 
-* Heap 영역의 메모리 크기는 컴파일 타임에 결정된다 
+* Heap 영역의 메모리 크기는 런타임에 결정된다 
