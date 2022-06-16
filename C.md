@@ -334,3 +334,21 @@ enum { RED = 3, BLUE, WHITE, BLACK };
 enum { RED = 3, BLUE, WHITE = 3, BLACK }
 ```
 * BLUE = 4, BLACK = 4
+
+## 정적(static) 변수 
+```cpp
+#include <stdio.h>
+
+int* function() {
+  static int a = 2;
+  return &a;
+}
+
+int main() {
+  int* pa = function();
+  printf("%d \n", *pa);
+}
+```
+* static 변수는 자신이 선언된 범위를 벗어나더라도 소멸은 되지 않지만 선언된 범위 안에서만 사용 가능하다
+* static int a = 2 라는 문장은 딱 한 번 실행 되어 최초 실행시 딱 한 번 초기화 되며, function 을 실행하지 않더라도 a 라는 정적 변수는 이미 정의되어 있는 상태이다 
+* 전역 변수 처럼 정적 변수도 정의시 특별한 값을 지정해 주지 않는 한 0 으로 자동 초기화가 된다 
