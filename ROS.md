@@ -179,3 +179,12 @@ $ cd ~/catkin_ws
 $ rosdep install --from-paths src --ignore-src
 ```
 * driver 에는 geodesy 패키지가 필요한데 위 명령어를 입력하면 자동으로 설치가 된다 
+
+## ROS topic 내용 확인 
+```
+$ roscore 
+// 토픽 메시지를 사용하는 노드 실행 
+$ rostopic list 
+$ rostopic info /토픽명
+$ rostopic echo /토픽명
+```
