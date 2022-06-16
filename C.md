@@ -356,4 +356,4 @@ int main() {
 ## 데이터 세그먼트의 구조 
 * 프로그램이 실행 될 때 프로그램은 RAM 에 적재된다 
 * RAM 위로 올라오는 프로그램의 내용을 크게 나누어서 코드 세그먼트(Code Segment) 와 데이터 세그먼트(Data Segment) 로 분류한다 
-* 데이터 세그먼트안에는 Stack 영역 (지역변수), Heap 영역, Data 영역 (전역변수, 정적변수), Read-Only-Data (상수와 리터럴), Code 영역 (Code Segment) 로 분류된다 
+* 데이터 세그먼트안에는 Stack 영역 (지역변수), Heap 영역 (프로그래머가 관리하는 메모리 영역), Data 영역 (전역변수, 정적변수), Read-Only-Data (상수와 리터럴), Code 영역 (Code Segment) 로 분류된다 
