@@ -175,8 +175,10 @@ $ rostopic list
 ```
 * ImportError: No module named geodesy.utm 에러 해결법 
 ```
+$ cd ~/catkin_ws/src
+$ git clone https://github.com/ros-geographic-info/geographic_info.git
 $ cd ~/catkin_ws
-$ rosdep install --from-paths src --ignore-src
+$ catkin_make
 ```
 * driver 에는 geodesy 패키지가 필요한데 위 명령어를 입력하면 자동으로 설치가 된다 
 
