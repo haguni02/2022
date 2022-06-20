@@ -359,3 +359,39 @@ int main() {
 * 데이터 세그먼트안에는 Stack 영역 (지역변수), Heap 영역 (프로그래머가 관리하는 메모리 영역), Data 영역 (전역변수, 정적변수), Read-Only-Data (상수와 리터럴), Code 영역 (Code Segment) 로 분류된다 
 * Stack 영역과 Data 영역의 메모리 크기는 컴파일 타임에 결정된다 
 * Heap 영역의 메모리 크기는 런타임에 결정된다 
+
+## void 형 포인터 
+```cpp
+/* 임의의 주소값 p 로 부터 byte 만큼 읽은 함수*/
+#include <stdio.h>
+
+int read_char(void *p, int byte);
+
+int main() {
+  int arr[1] = {0x12345678};
+
+  printf("%x \n", arr[0]);
+  read_char(arr, 4);
+}
+
+int read_char(void *p, int byte) {
+  while (p && byte) {
+    printf("%x \n", *(char *)p);
+    byte--;
+
+    p = (char *)p + 1;
+  } 
+
+  return 0;
+}
+```
+```
+12345678 
+78 
+56 
+34 
+12 
+```
+* void 형 포인터 p는 어떠한 타입의 주소값을 받을 수 있지만, 사용할 때는 반드시 받은 주소값의 타입에 맞춰 강제 형변환을 해줘야 한다 
+* while (p && byte) 는 p가 NULL 이거나 byte 가 0 이면 반복문을 종료한다는 뜻이다 
+* 출력값이 78, 56, 34, 12 로 나오는 이유는 리틀 엔디안 방식으로 메모리를 저장하기 때문이다 
