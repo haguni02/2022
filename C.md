@@ -395,3 +395,15 @@ int read_char(void *p, int byte) {
 * void 형 포인터 p는 어떠한 타입의 주소값을 받을 수 있지만, 사용할 때는 반드시 받은 주소값의 타입에 맞춰 강제 형변환을 해줘야 한다 
 * while (p && byte) 는 p가 NULL 이거나 byte 가 0 이면 반복문을 종료한다는 뜻이다 
 * 출력값이 78, 56, 34, 12 로 나오는 이유는 리틀 엔디안 방식으로 메모리를 저장하기 때문이다 
+
+## main 함수의 인자 
+```cpp
+#include <stdio.h>
+int main(int argc, char **argv) {
+  printf("받은 인자의 개수 : %d \n", argc);
+  printf("이 프로그램의 경로 : %s \n", argv[0]);
+
+  return 0;
+}
+```
+* 각 인자들은 char 형 배열에 저장이 되고, 인자들의 배열의 첫번째 주소값을 모아놓은 배열이 있어, argv 는 인자들의 배열의 첫번째 주소값을 모아놓은 배열의 첫번째 배열을 가르킨다  
