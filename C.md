@@ -407,3 +407,66 @@ int main(int argc, char **argv) {
 }
 ```
 * 각 인자들은 char 형 배열에 저장이 되고, 인자들의 배열의 첫번째 주소값을 모아놓은 배열이 있어, argv 는 인자들의 배열의 첫번째 주소값을 모아놓은 배열의 첫번째 배열을 가르킨다  
+
+## 동적 메모리 할당 
+```cpp
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char **argv) {
+  int SizeOfArray;
+  int *arr;
+
+  printf("만들고 싶은 배열의 원소의 수 : ");
+  scanf("%d", &SizeOfArray);
+
+  arr = (int *)malloc(sizeof(int) * SizeOfArray);
+  // int arr[SizeOfArray] 와 동일한 작업을 한 크기의 배열 생성
+
+  free(arr);
+
+  return 0;
+}
+```
+* 런타임에 가변적인 크기로 메모리를 동적으로 할당해주는 함수가 malloc 함수이다 
+* malloc 함수를 사용하기 위해서는 stdlib.h 헤더파일을 포함시켜야한다
+* malloc(메모리 크기 - byte 단위) -> 할당한 메모리의 시작 주소값을 담고 있는 void 형 포인터를 반환한다 
+* Heap 메모리 영역에 메모리를 할당한다 
+* Heap 메모리 영역은 오로지 프로그래머가 관리하는 영역이기 때문에 메모리를 할당했다면 free() 함수로 메모리 리소스를 해제해주어야 한다
+```cpp
+/* 2 차원 배열의 동적 할당 */
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(int argc, char **argv) {
+  int i;
+  int x, y;
+  int **arr;  // 우리는 arr[x][y] 를 만들 것이다.
+
+  printf("arr[x][y] 를 만들 것입니다.\n");
+  scanf("%d %d", &x, &y);
+
+  arr = (int **)malloc(sizeof(int *) * x);
+  // int* 형의 원소를 x 개 가지는 1 차원 배열 생성
+
+  for (i = 0; i < x; i++) {
+    arr[i] = (int *)malloc(sizeof(int) * y);
+  }
+
+  printf("생성 완료! \n");
+
+  for (i = 0; i < x; i++) {
+    free(arr[i]);
+  }
+  free(arr);
+
+  return 0;
+}
+```
+```
+arr[x][y] 를 만들 것입니다.
+3
+5
+생성 완료! 
+```
+* <img src="./img/C_malloc.png" /> 
