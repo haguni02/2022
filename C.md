@@ -621,3 +621,78 @@ struct Node* CreateNode(int data) {
 노드의 데이터 : 400 
 노드의 데이터 : 300 
 ```
+
+## 메모리 관련 함수 
+```cpp
+/* memcpy 함수 */
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+  char str[50] = "I love Chewing C hahaha";
+  char str2[50];
+  char str3[50];
+
+  memcpy(str2, str, strlen(str) + 1);
+  memcpy(str3, "hello", 6);
+
+  printf("%s \n", str);
+  printf("%s \n", str2);
+  printf("%s \n", str3);
+
+  return 0;
+}
+```
+```
+I love Chewing C hahaha 
+I love Chewing C hahaha 
+hello 
+```
+* 문자열 복사를 전문적으로 하는 함수는 strcpy 이지만 위와 같이 memcpy 함수를 사용하는 것도 나쁘지 않다 
+```cpp
+/* memmove 함수 */
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+  char str[50] = "I love Chewing C hahaha";
+
+  printf("%s \n", str);
+  printf("memmove 이후 \n");
+  memmove(str + 23, str + 17, 6);
+  printf("%s", str);
+
+  return 0;
+}
+```
+```
+I love Chewing C hahaha 
+memmove 이후 
+I love Chewing C hahahahahaha
+```
+* memmove 함수는 메모리의 특정한 부분의 내용을 다른 부분으로 옮겨주는 역할을 하는데, 이 때 '옮긴다' 고 해서 이전 공간에 있던 데이터가 사라지지는 않는다
+```cpp
+/* memcmp 함수 */
+
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+  int arr[10] = {1, 2, 3, 4, 5};
+  int arr2[10] = {1, 2, 3, 4, 5};
+
+  if (memcmp(arr, arr2, 5) == 0)
+    printf("arr 과 arr2 는 일치! \n");
+  else
+    printf("arr 과 arr2 는 일치 안함 \n");
+
+  return 0;
+}
+```
+```
+arr 과 arr2 는 일치! 
+```
+* arr 과 arr2 를 비교해서 처음 5 개의 바이트가 같다면 0 을 리턴하고, 다르다면 결과에 따라 0 이 아닌 값을 리턴한다 
+* 주의해야 할 점은 '5 개의 원소' 가 아니라 5 바이트 라는 점이다 
