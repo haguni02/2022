@@ -623,6 +623,7 @@ struct Node* CreateNode(int data) {
 ```
 
 ## 메모리 관련 함수 
+* 대표적인 3 개의 메모리 관련 함수인 memmove, memcpy, memcmp 는 모두 string.h 에 정의되어 있다
 ```cpp
 /* memcpy 함수 */
 
