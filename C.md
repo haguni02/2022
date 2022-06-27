@@ -734,3 +734,71 @@ int main(int argc, char **argv) {
 ```
 * 인라인 함수는 _inline 키워드만 빼면 기존 함수의 정의와 같지만, 함수처럼 작동하는 것이 아니라 컴파일러가 컴파일 전에 치환시켜 매크로 함수처럼 작동을 한다 
 * 매크로 함수와 차이점이 있다면 매크로 함수와는 달리 인라인 함수는 전처리기가 무식하게 치환해 버리는 것이 아니라, 예를 들어 square(3 + 1) 을 보통 함수를 사용하는 것처럼 (3 + 1) * (3 + 1) 로 치환해준다
+
+## typedef 
+```
+typedef (이름을 새로 부여하고자 하는 타입) (새로 준 타입의 이름)
+```
+```cpp
+/* typedef 의 이용 */
+#include <stdio.h>
+struct HUMAN {
+  int age;
+  int height;
+  int weight;
+  int gender;
+};
+
+typedef struct HUMAN Human;
+
+int main() {
+  Human Adam = {31, 182, 75, 0};
+  Human Eve = {27, 166, 48, 1};
+  
+  return 0;
+}
+```
+```cpp
+/* 여러가지 typedef 예제들 */
+
+#include <stdio.h>
+int add(int a, int b) { return a + b; }
+typedef int CAL_TYPE;
+typedef int (*Padd)(int, int);
+typedef int Arrays[10];
+
+int main() {
+  CAL_TYPE a = 10;
+  Arrays arr = {1, 2, 3, 4, 5, 6, 7, 8, 9, 0};
+  Padd ptr = add;
+  printf("a : %d \n", a);
+  printf("arr[3] : %d \n", arr[3]);
+  printf("add(3, 5) : %d \n", ptr(3, 5));
+  return 0;
+}
+```
+```
+a : 10 
+arr[3] : 4 
+add(3, 5) : 8 
+```
+
+## volatile 키워드
+```cpp
+#include <stdio.h>
+typedef struct SENSOR {
+  /* 감지 안되면 0, 감지되면 1 이다.*/
+  int sensor_flag;
+  int data;
+} SENSOR;
+
+int main() {
+  volatile SENSOR *sensor;
+  /* 값이 감지되지 않는 동안 계속 무한 루프를 돈다*/
+  while (!(sensor->sensor_flag)) {
+  }
+  printf("Data : %d \n", sensor->data);
+}
+```
+* volatile 은 아주 특수한 상황이 아니고서는 사용하지 않는 키워드이다
+* sensor 에 volatile 키워드를 붙여준 순간, 컴파일러 최적화에 의한 코드 변경이 이루어지지 않고 위 소스를 의미 그대로 컴파일 하게 되어 원하던 결과를 얻을 수 있게 된다
