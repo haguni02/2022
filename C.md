@@ -802,3 +802,80 @@ int main() {
 ```
 * volatile 은 아주 특수한 상황이 아니고서는 사용하지 않는 키워드이다
 * sensor 에 volatile 키워드를 붙여준 순간, 컴파일러 최적화에 의한 코드 변경이 이루어지지 않고 위 소스를 의미 그대로 컴파일 하게 되어 원하던 결과를 얻을 수 있게 된다
+
+## 스트림
+* <img src="C_stream.png" /> 
+* 스트림은 두 개의 완전히 다른 장치들을 이어주는 파이프 라고 보면 된다 
+* 스트림은 직접 구현해야 되는 것이 아니라 운영체제가 스스로 처리해준다 
+* 만일 모니터와 잇는 스트림을 이용한다면 운영체제는 모니터에 맞는 명령을 내릴 것이고, 키보드와 잇는 스트림을 이용한다면 운영체제가 키보드에 맞는 명령을 알아서 내린다 
+* 만일 모니터에 A 를 출력하고 싶다면 단순히 스트림에 A 를 넣으면 운영체제에 의해 알아서 모니터에 명령을 내려서 A 를 출력하게 된다 
+* 만일 키보드에 무언가를 입력했다면 운영체제에서 알아서 잘 해석을 한 다음 우리가 이해할 수 있는 데이터로 만들어서 스트림에 전달한다 
+* 모니터와 키보드에 대한 스트림은 표준 스트림(standard stream) 이라 해서 프로그램이 실행될 때 자동으로 생성된다 
+* 모니터에 대한 스트림은 stdout 이고, 키보드에 대한 스트림은 stdin 이다  
+* stderr 이라는 표준 오류 스트림이란 것이 있는데 stdout 하고 거의 동일하다고 보면 된다 
+```cpp
+#include <stdio.h>
+
+int main()
+{
+	FILE* fp;
+	fp = fopen("a.txt", "w");
+
+	if (fp == NULL)
+	{
+		printf("Write Error!!\n");
+		return 0;
+	}
+
+	fputs("Hello World!!! \n", fp);
+
+	fclose(fp);
+	return 0;
+}
+```
+* 파일에 관한 스트림의 정보는 FILE 구조체에 들어가 있다 
+* 파일의 스트림은 읽기와 쓰기 두가지가 있는데 fopen 함수로 파일의 스트림을 열어준다 
+* fputs 로 쓰기모드인 파일 스트림으로 문자열을 보낸다 
+* 파일 스트림은 닫아주기 전까지 계속 열려있는데 fclose 함수로 열려있는 스트림을 닫는다 
+```cpp
+#include <stdio.h>
+int main() {
+  FILE *fp = fopen("a.txt", "r");
+  char buf[20];  // 내용을 입력받을 곳
+  if (fp == NULL) {
+    printf("READ ERROR !! \n");
+    return 0;
+  }
+  fgets(buf, 20, fp);
+  printf("입력받는 내용 : %s \n", buf);
+  fclose(fp);
+  return 0;
+}
+```
+```
+Hello World!!
+```
+
+## 파일 위치 지정자
+```cpp
+#include <stdio.h>
+int main() {
+  /* 현재 fp 에 abcdef 가 들어있는 상태*/
+  FILE *fp = fopen("a.txt", "r");
+  fgetc(fp);
+  fgetc(fp);
+  fgetc(fp);
+  fgetc(fp);
+  /* d 까지 입력받았으니 파일 위치지정자는 이제 e 를 가리키고 있다 */
+  fseek(fp, 0, SEEK_SET);
+  printf("다시 파일 처음에서 입력 받는다면 : %c \n", fgetc(fp));
+  fclose(fp);
+  return 0;
+}
+```
+```
+다시 파일 처음에서 입력 받는다면 : a
+```
+* 파일을 맨 처음 열었을 때에는 파일 위치 지정자는 파일의 맨 첫부분을 가리키고 있다
+* fgetc 로 입력을 받는다면 파일 위치지정자는 한 칸 넘어가서 다음에 입력 받을 것을 가리키고 있게된다 
+* SEEK_SET 은 파일의 맨 처음을 일컫는 매크로 상수이고, 현재의 위치를 표시하는 SEEK_CUR 과 파일의 맨 마지막을 표시하는 SEEK_END 상수들이 있다 
