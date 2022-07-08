@@ -49,6 +49,7 @@ int main() {
 ```
 10
 ```
+* new 로 배열 할당하기
 ```
 T* pointer = new T[size];
 ```
