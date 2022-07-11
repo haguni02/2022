@@ -130,3 +130,44 @@ int main() {
 이 동물의 food   : 130
 이 동물의 weight : 60
 ```
+
+## 함수의 오버로딩 (Overloading)
+* 함수 이름이 같아도 인자의 개수나 타입이 다르다면 다른 함수로 취급한다 
+```cpp
+/* 함수의 오버로딩 */
+#include <iostream>
+
+void print(int x) { std::cout << "int : " << x << std::endl; }
+void print(double x) { std::cout << "double : " << x << std::endl; }
+
+int main() {
+  int a = 1;
+  char b = 'c';
+  double c = 3.2f;
+
+  print(a);
+  print(b);
+  print(c);
+
+  return 0;
+}
+```
+```
+int : 1
+int : 99
+double : 3.2
+```
+* print(b) 가 되는 이유는 함수의 오버로딩은 몇가지 규칙을 가지고 있기 때문이다 
+> * 1단계 : 자신과 타입이 정확히 일치하는 함수를 찾는다
+> * 2단계 : 정확히 일치하는 타입이 없는 경우 아래와 같은 형변환을 통해서 일치하는 함수를 찾아본다
+>> * char, unsigned char, short 는 int 로 변환된다
+>> * unsigned short 는 int 의 크기에 따라 int 혹은 unsigned int 로 변환된다
+>> * float 은 double 로 변환된다
+>> * enum 은 int 로 변환된다
+> * 3단계 : 위와 같이 변환해도 일치하는 것이 없다면 아래의 좀더 포괄적인 형변환을 통해 일치하는 함수를 찾는다
+>> * 임의의 숫자(numeric) 타입은 다른 숫자 타입으로 변환된다 (예를 들어 float -> int)
+>> * enum 도 임의의 숫자 타입으로 변환된다 (예를 들어 enum -> double)
+>> * 0 은 포인터 타입이나 숫자 타입으로 변환된 0 은 포인터 타입이나 숫자 타입으로 변환된다
+>> * 포인터는 void 포인터로 변환된다
+> * 4단계 : 유저 정의된 타입 변환으로 일치하는 것을 찾는다
+> * 만약에 컴파일러가 위 과정을 통하더라도 일치하는 함수를 찾을 수 없거나 같은 단계에서 두 개 이상이 일치하는 경우에 모호하다 (ambiguous) 라고 판단해서 오류를 발생하게 된다
