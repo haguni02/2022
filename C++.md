@@ -86,3 +86,47 @@ array size : 5
 3th element of list : 6
 4th element of list : 8
 ```
+
+## 객체와 클래스 
+```cpp
+#include <iostream>
+
+class Animal {
+ private:
+  int food;
+  int weight;
+
+ public:
+  void set_animal(int _food, int _weight) {
+    food = _food;
+    weight = _weight;
+  }
+  void increase_food(int inc) {
+    food += inc;
+    weight += (inc / 3);
+  }
+  void view_stat() {
+    std::cout << "이 동물의 food   : " << food << std::endl;
+    std::cout << "이 동물의 weight : " << weight << std::endl;
+  }
+};  // 세미콜론 잊지 말자!
+
+int main() {
+  Animal animal; // 클래스를 이용한 객체 생성 
+  animal.set_animal(100, 50);
+  animal.increase_food(30);
+
+  animal.view_stat();
+  return 0;
+}
+```
+```
+이 동물의 food   : 130
+이 동물의 weight : 60
+```
+* 클래스의 변수와 함수를 멤버 변수, 멤버 함수 라고 부른다 
+* 클래스를 이용해 객체를 생성해야 프로그램 상에서 사용 가능하다 
+* 객체의 변수와 함수를 인스턴스 변수, 인스턴스 메서드 라고 부른다 
+* 컴퓨터 상에서 현실 세계를 100% 나타낼 수 없는 것이기 때문에, 적절하게 컴퓨터에서 처리할 수 있도록 바꾸는 추상화(abstraction) 과정이 필요하다 
+* 객체의 상태를 나타내는 것을 변수로 추상화 하고, 객체의 행위를 함수로 추상화 할 수 있다  
+* 외부에서 직접 인스턴스 변수의 값을 바꿀 수 없고 항상 인스턴스 메소드를 통해서 간접적으로 조절하는 것을 캡슐화(Encapsulation) 라고 부른다 
