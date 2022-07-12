@@ -171,3 +171,118 @@ double : 3.2
 >> * 포인터는 void 포인터로 변환된다
 > * 4단계 : 유저 정의된 타입 변환으로 일치하는 것을 찾는다
 > * 만약에 컴파일러가 위 과정을 통하더라도 일치하는 함수를 찾을 수 없거나 같은 단계에서 두 개 이상이 일치하는 경우에 모호하다 (ambiguous) 라고 판단해서 오류를 발생하게 된다
+
+## 생성자 (constructor)
+```cpp
+/* Date.h */
+#include <iostream>
+
+class Date {
+    int m_year;
+    int m_month;
+    int m_day;
+    
+public:
+    void SetDate(int year, int month, int date);
+    void AddDay(int inc);
+    void AddMonth(int inc);
+    void AddYear(int inc);
+    
+    int GetCurrentMonthTotalDays(int year, int month);
+
+    void ShowDate();
+
+    Date(int year, int month, int day)
+    {
+        m_year = year;
+        m_month = month;
+        m_day = day;
+    }
+};
+```
+```cpp
+/* Date.cpp */
+#include "Date.h"
+
+void Date::SetDate(int year, int month, int day)
+{
+    m_year = year;
+    m_month = month;
+    m_day = day;
+}
+
+int Date::GetCurrentMonthTotalDays(int year, int month)
+{
+    static int month_day[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    if (month != 2)
+    {
+        return month_day[month - 1];
+    }
+    else if (year % 4 == 0 && year % 100 != 0) 
+    {
+        return 29;
+    }
+    else 
+    {
+        return 28;
+    }
+    
+}
+
+void Date::AddDay(int inc)
+{
+    while (true)
+    {
+        int current_month_total_days = GetCurrentMonthTotalDays(m_year, m_month);
+        
+        if (m_day + inc <= current_month_total_days) 
+        {
+            m_day += inc;
+            return;
+        }
+        else 
+        {
+            inc -= (current_month_total_days - m_day + 1);
+            m_day = 1;
+            AddMonth(1);
+        }
+    }
+}
+
+void Date::AddMonth(int inc)
+{
+    AddYear((inc + m_month - 1) / 12);
+    m_month = m_month + inc % 12;
+    m_month = m_month == 12 ? 12 : m_month % 12;
+}
+
+void Date::ShowDate() {
+  std::cout << m_year << " 년 " << m_month << " 월 " << m_day
+            << " 일" << std::endl;
+}
+
+void Date::AddYear(int inc) { m_year += inc; }
+
+```
+```cpp
+/* Main.cpp */
+#include "Date.h"
+
+int main()
+{
+    Date day(2011, 3, 1);
+    day.ShowDate();
+
+    day.AddYear(10);
+    day.ShowDate();
+      
+    return 0;
+}
+```
+```
+2011 년 3 월 1 일
+2021 년 3 월 1 일
+```
+* 생성자는 기본적으로 "객체 생성시 자동으로 호출되는 함수" 이다 
+* 생성자가 없어도 컴파일러가 인자가 하나도 없는 디폴트 생성자(Default Constructor)를 추가해준다 
+* 사용자가 어떤 다른 생성자를 추가한 순간 컴파일러는 자동으로 디폴트 생성자를 삽입하지 않는다
