@@ -1,3 +1,4 @@
+## cout 숫자 자리수 설정
 ```cpp
 #include <iostream>
 
